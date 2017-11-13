@@ -131,7 +131,7 @@ Setting up a virtual environment for a project allows us to easily keep our Pyth
 
 To use `hodl` you must first follow all of the above instructions. 
 
-Then
+
 1. Start your `virtualenv` 
 
     ```
@@ -147,13 +147,13 @@ Then
     $ python3 hodl.py --detailed
     ```
 
-*Optional Flags:*
+*Required Flags (use only one):*
 
 - `--overview`  : Print total and available btc balance overview
 - `--detailed`  : Print verbose account balances of all your bags
 
     
-_You should immediately see feedback from the console suggesting `Hodle` has started._
+_You should immediately see feedback from the console suggesting `hodle` has started._
 
 ## Example Output:
 
