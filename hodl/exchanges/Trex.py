@@ -67,9 +67,7 @@ def print_bittrex_balances():
             for market in balances_data:
 
                     mkt_balance = '{0:.8f}'.format(float(market['Balance']['Balance']))
-                    #
-                    # # arbitrary number to remove near-zero balances
-                    # if float(mkt_balance) > 0:
+
                     mkt_ticker = market['Currency']['Currency']
                     mkt_price = 0
                     try:
@@ -78,12 +76,12 @@ def print_bittrex_balances():
                         pass
 
                     mkt_value_btc = float(mkt_price) * float(mkt_balance)
-                    account_value_btc += mkt_value_btc
-
-                    mkt_avail_bal = '{0:.8f}'.format(float(market['Balance']['Available']))
 
                     # arbitrary number to remove near-zero balances
                     if float(mkt_value_btc) > NEAR_ZERO_BALANCE:
+
+                        account_value_btc += mkt_value_btc
+                        mkt_avail_bal = '{0:.8f}'.format(float(market['Balance']['Available']))
 
                         mkt_str = ' --- {0: <6} ---  '.format(mkt_ticker)
                         mkt_str += 'balance: {0: >15} ---  '.format(mkt_balance)
@@ -155,16 +153,16 @@ def get_bittrex_account_value():
 
             for market in balances_data:
                 mkt_balance = '{0:.4f}'.format(float(market['Balance']['Balance']))
+                mkt_price = 0
+                try:
+                    mkt_price = market['BitcoinMarket']['Last']
+                except TypeError:
+                    pass
+
+                mkt_value_btc = float(mkt_price) * float(mkt_balance)
 
                 # arbitrary number to remove near-zero balances
-                if float(mkt_balance) > NEAR_ZERO_BALANCE:
-                    mkt_price = 0
-                    try:
-                        mkt_price = market['BitcoinMarket']['Last']
-                    except TypeError:
-                        pass
-
-                    mkt_value_btc = float(mkt_price) * float(mkt_balance)
+                if float(mkt_value_btc) > NEAR_ZERO_BALANCE:
                     account_value_btc += mkt_value_btc
 
             account_value_btc += btc_balance
@@ -174,25 +172,3 @@ def get_bittrex_account_value():
 
     return account_value_btc
 
-
-# TODO: REMOVE THIS IF NOT USED (uses buggy API2 anyway)
-def get_nonzero_bittrex_v2_balances():
-    balances_response = bittrex_v2.get_balances()
-
-    if balances_response['success'] and balances_response['result'] is not None:
-        balances = balances_response['result']
-        balances_nonzero = []
-
-        for balance in balances:
-            cur_mrkt_bal = balance['Balance']['Balance']
-            cur_mrkt_ticker = balance['Currency']['Currency']
-
-            # arbitrary threshold to remove any near-zero balances
-            if cur_mrkt_bal > NEAR_ZERO_BALANCE:
-                print('{}: {}'.format(cur_mrkt_ticker, cur_mrkt_bal))
-                balances_nonzero.append({cur_mrkt_ticker: cur_mrkt_bal})
-
-        return balances_nonzero
-    else:
-        print_bittrex_api_error(balances_response)
-        return None
