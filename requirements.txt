@@ -1,0 +1,2 @@
+requests==2.18.4
+https://github.com/s4w3d0ff/python-poloniex/archive/v0.4.6.zip
