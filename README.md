@@ -16,6 +16,13 @@ _A simple script designed to provide you with a detailed overview of your accoun
 * Poloniex
 
 
+## Donations Welcome
+* **BTC** `1KWb1gP9QA2bT1fWB9B6a9C6AaBoXW92AF`
+* **ETH** `0xe6fCee44C2372B1402008b29c3bC82A0309737F0`
+* **LTC** `LPpo6YmsA1dJeyvGS47DUqEmmVPvjoAJUE`
+
+
+
 ## Setup
 
 Setting up a virtual environment for a project allows us to easily keep our Python package versions consistent across anyone who works on or runs this project as well as isolates the projects packages from our individual global Python environments. 
