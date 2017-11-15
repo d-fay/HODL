@@ -221,7 +221,7 @@ _You should immediately see feedback from the console suggesting `hodle` has sta
         Account Value: 0.59695743 BTC
         ----------------------------------------------------------------------------------------------------------
         Open orders: 
-            open orders will print here.. 
+            open orders will print here..>
         
         
         
@@ -244,7 +244,7 @@ _You should immediately see feedback from the console suggesting `hodle` has sta
         Account Value: 0.40584864 BTC
         ---------------------------------------------------------------------------------------------------------
         Open orders: 
-        
+            Market: BTC-GBYTE --- Order Type: LIMIT_BUY --- Qty:      0.68277086 --- Qty Remaining:      0.68277086
         
            _____                                           
           / ___/__  ______ ___  ____ ___  ____ ________  __
