@@ -127,7 +127,7 @@ Setting up a virtual environment for a project allows us to easily keep our Pyth
 1. Take a look at the parameters located in the settings file `conf/settings.ini`
 
     ```
-    # nano conf/settings.ini
+    $ nano conf/settings.ini
     ```
      _Here you can customize which exchanges are turned on._
     * _For each exchange with API keys, set the corresponding connection to `on`._
