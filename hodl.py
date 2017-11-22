@@ -105,8 +105,6 @@ def main():
             trex_str += ' --- Account Value: {0: >10.8f}'.format(value_at_bittrex)
             print(trex_str)
 
-        # add additional exchanges here
-
         print_total_value_accounts_summary(value_of_all_available_btc, value_of_all_accounts)
 
     def print_total_value_accounts_summary(combined_available_btc, combined_value_of_accounts):
@@ -125,10 +123,9 @@ def main():
         print('Total estimated value of all accounts: {0:.8f} BTC'.format(combined_value_of_accounts))
         print('===================================================================\n')
 
-    def execute_printing_of_all_balances():
+    def print_poloniex_detail_balances():
         """
-        Used to execute printing of balances across all exchanges and
-        then print a total combined value of all active exchanges.
+        Print detailed balances of Poloniex account
         :return: None
         """
         if settings.poloniex == 'on':
@@ -136,12 +133,24 @@ def main():
             print_poloniex_balances()
             print_open_poloniex_orders()
 
+    def print_bittrex_detail_balances():
+        """
+        Print detailed balances of Bittrex account
+        :return: None
+        """
         if settings.bittrex == 'on':
             print_bittrex_ascii()
             print_bittrex_balances()
             print_open_bittrex_orders()
 
-        # add additional exchanges here
+    def execute_printing_of_all_balances():
+        """
+        Used to execute printing of balances across all exchanges and
+        then print a total combined value of all active exchanges.
+        :return: None
+        """
+        print_poloniex_detail_balances()
+        print_bittrex_detail_balances()
 
         print_summary_ascii()
         print_available_btc_balances()
@@ -151,11 +160,19 @@ def main():
         for arg in argv:
             if arg == '--overview' or arg == 'overview':
                 start()
-                print_available_btc_balances()      # --overview: Print total and available btc balances
+                print_available_btc_balances()              # --overview: Print total and available btc balances
                 sys.exit(0)
             elif arg == '--detailed' or arg == 'detailed':
                 start()
-                execute_printing_of_all_balances()  # --detailed: Print verbose account balances
+                execute_printing_of_all_balances()          # --detailed: Print verbose account balances
+                sys.exit(0)
+            elif arg == '--poloniex' or arg == 'poloniex':
+                start()
+                print_poloniex_balances()                   # --poloniex: Print only Poloniex balances
+                sys.exit(0)
+            elif arg == '--bittrex' or arg == 'bittrex':
+                start()
+                print_bittrex_balances()                    # --balances: Print only Bittrex balances
                 sys.exit(0)
 
     start()   # ascii art
