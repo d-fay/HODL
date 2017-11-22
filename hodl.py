@@ -1,5 +1,4 @@
 """ BagHodler MAIN """
-import datetime
 import sys
 from sys import argv
 
