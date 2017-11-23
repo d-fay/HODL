@@ -139,7 +139,7 @@ Setting up a virtual environment for a project allows us to easily keep our Pyth
 To use `hodl` you must first follow all of the above instructions. 
 
 
-1. Start your `virtualenv` 
+1. Start your `virtualenv` from inside the project directory
 
     ```
     $ source ~/.virtualenvs/hodl/bin/activate

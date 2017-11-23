@@ -28,7 +28,7 @@ BEFORE USE:
 
 def main():
 
-    def start():
+    def ascii():
         """
         ASCII art generated at http://patorjk.com/software/taag/#p=display&f=Big%20Money-nw&t=hodl
         """
@@ -57,9 +57,12 @@ def main():
         Prints usage instructions
         :return: None
         """
-        print('hodl requires the using one of the following flags:\n')
+        print('hodl requires using one of the following flags:\n')
         print('     --overview: Print total and available btc balances')
         print('     --detailed: Print verbose account balances')
+        print('     --poloniex: Print only Poloniex balances')
+        print('     --bittrex: Print only Bittrex balances')
+
         print('\nPlease pass in required argument (ie: python3 hodl.py --overview)\n')
 
     def print_summary_ascii():
@@ -159,23 +162,23 @@ def main():
     if len(argv) > 1:
         for arg in argv:
             if arg == '--overview' or arg == 'overview':
-                start()
+                ascii()
                 print_available_btc_balances()              # --overview: Print total and available btc balances
                 sys.exit(0)
             elif arg == '--detailed' or arg == 'detailed':
-                start()
+                ascii()
                 execute_printing_of_all_balances()          # --detailed: Print verbose account balances
                 sys.exit(0)
             elif arg == '--poloniex' or arg == 'poloniex':
-                start()
+                print_poloniex_ascii()
                 print_poloniex_balances()                   # --poloniex: Print only Poloniex balances
                 sys.exit(0)
             elif arg == '--bittrex' or arg == 'bittrex':
-                start()
+                print_bittrex_ascii()
                 print_bittrex_balances()                    # --balances: Print only Bittrex balances
                 sys.exit(0)
 
-    start()   # ascii art
+    ascii()   # ascii art
     info()    # if no parameter is passed in, print help screen
     sys.exit(0)
 
