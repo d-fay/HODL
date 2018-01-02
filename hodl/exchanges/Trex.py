@@ -113,7 +113,7 @@ def print_open_bittrex_orders():
         print("Open orders: ")
         for order in open_orders:
             if order:
-                temp_str = '    Market: {0: <6}'.format(order['Exchange'])
+                temp_str = '   Market: {0: <9}'.format(order['Exchange'])
                 temp_str += ' --- Order Type: {0: <4}'.format(order['OrderType'])
                 temp_str += ' --- Qty: {0: >15}'.format(order['Quantity'])
                 temp_str += ' --- Qty Remaining {0: >15}'.format(order['QuantityRemaining'])

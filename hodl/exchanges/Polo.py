@@ -84,7 +84,7 @@ def print_open_poloniex_orders():
     for market, orders in complete_balances.items():
         if orders:
             for order in orders:
-                temp_str = '   Market: {0: <6}'.format(market)
+                temp_str = '   Market: {0: <9}'.format(market)
                 temp_str += ' --- Order Type: {0: <4}'.format(order['type'])
                 temp_str += ' --- Qty: {0: >15}'.format(order['startingAmount'])
                 temp_str += ' --- Qty Remaining {0: >15}'.format(order['amount'])

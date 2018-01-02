@@ -165,14 +165,20 @@ _You should immediately see feedback from the console suggesting `hodle` has sta
 
         ===================================================================
         Balances By Account (BTC)
-        -------------------------------------------------------------------
+        
           Poloniex  --- Available: 0.18786449 --- Account Value: 0.59695743
            Bittrex  --- Available: 0.14733282 --- Account Value: 0.40584864
         -------------------------------------------------------------------
-        Percentage of account in BTC: % 33.52
+        Percentage of balance at each exchange: 
+        
+          Poloniex  --- % 59.53
+           Bittrex  --- % 40.47
+        -------------------------------------------------------------------
+        Percentage of account in BTC: % 33.42
         ===================================================================
         Total estimated value of all accounts: 1.00280607 BTC
         ===================================================================
+
 
 #### Detailed:
         
