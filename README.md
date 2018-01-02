@@ -9,18 +9,12 @@
 
 # hodl
 
-_A simple script designed to provide you with a detailed overview of your accounts accross multiple cryptocurrency exchanges._ 
+View those heavy bags of yours all in one place.
+_This simple script provides a detailed overview of your cryptocurreny exchange accounts without the need to login._ 
 
 **Supported Exchanges:**
 * Bittrex
 * Poloniex
-
-
-## Donations Welcome
-* **BTC** `1KWb1gP9QA2bT1fWB9B6a9C6AaBoXW92AF`
-* **ETH** `0xe6fCee44C2372B1402008b29c3bC82A0309737F0`
-* **LTC** `LPpo6YmsA1dJeyvGS47DUqEmmVPvjoAJUE`
-
 
 
 ## Setup
@@ -256,13 +250,26 @@ _You should immediately see feedback from the console suggesting `hodle` has sta
                                                   /____/   
         ===================================================================
         Balances By Account (BTC)
-        -------------------------------------------------------------------
+        
           Poloniex  --- Available: 0.18786449 --- Account Value: 0.59695743
            Bittrex  --- Available: 0.14733282 --- Account Value: 0.40584864
         -------------------------------------------------------------------
-        Percentage of account in BTC: % 33.52
+        Percentage of balance at each exchange: 
+        
+          Poloniex  --- % 59.53
+           Bittrex  --- % 40.47
+        -------------------------------------------------------------------
+        Percentage of account in BTC: % 33.42
         ===================================================================
         Total estimated value of all accounts: 1.00280607 BTC
         ===================================================================
+
+
+
+
+## Donations Welcome
+* **BTC** `1KWb1gP9QA2bT1fWB9B6a9C6AaBoXW92AF`
+* **ETH** `0xe6fCee44C2372B1402008b29c3bC82A0309737F0`
+* **LTC** `LPpo6YmsA1dJeyvGS47DUqEmmVPvjoAJUE`
 
 

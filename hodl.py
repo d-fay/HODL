@@ -79,10 +79,14 @@ def main():
         :return: None
         """
         print('===================================================================')
-        print('Balances By Account (BTC)')
-        print('-------------------------------------------------------------------')
+        print('Balances By Account (BTC)\n')
         value_of_all_accounts = 0
         value_of_all_available_btc = 0
+        value_at_poloniex = 0
+        value_at_bittrex = 0
+        percent_at_polo = 0
+        percent_at_trex = 0
+        percent_string = ''
 
         if settings.poloniex == 'on':
             value_at_poloniex = float(get_poloniex_account_value())
@@ -107,6 +111,22 @@ def main():
             trex_str += ' --- Available: {0: >10.8f}'.format(btc_avail_at_trex)
             trex_str += ' --- Account Value: {0: >10.8f}'.format(value_at_bittrex)
             print(trex_str)
+
+        if settings.poloniex == 'on':
+            percent_at_polo = value_at_poloniex / value_of_all_accounts * 100
+            polo_percent_str = '{0: >10} '.format('Poloniex')
+            polo_percent_str += ' --- % {0: >3.2f}'.format(percent_at_polo)
+            percent_string += '\n{}'.format(polo_percent_str)
+
+        if settings.bittrex == 'on':
+            percent_at_trex = value_at_bittrex / value_of_all_accounts * 100
+            trex_percent_str = '{0: >10} '.format('Bittrex')
+            trex_percent_str += ' --- % {0: >3.2f}'.format(percent_at_trex)
+            percent_string += '\n{}'.format(trex_percent_str)
+
+        print('-------------------------------------------------------------------')
+        print('Percentage of balance at each exchange: ')
+        print(percent_string)
 
         print_total_value_accounts_summary(value_of_all_available_btc, value_of_all_accounts)
 
