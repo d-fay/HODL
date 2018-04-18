@@ -2,18 +2,17 @@
 THIS CLASS HANDLES ALL BITTREX API
 
 Parameter configuration files are located in ../conf/settings.ini
+
+    DOCUMENTATION for Bittrex():
+        - https://bittrex.com/Home/Api
+        - https://github.com/ericsomdahl/python-bittrex
+
 """
 import sys
 
 from hodl.ConfRetriever import ConfRetriever
 from hodl.exchanges.Bittrex import Bittrex, API_V1_1, API_V2_0
 
-"""
-    DOCUMENTATION for Bittrex(): 
-        - https://bittrex.com/Home/Api
-        - https://github.com/ericsomdahl/python-bittrex
-
-"""
 
 conf = ConfRetriever()
 NEAR_ZERO_BALANCE = float(conf.near_zero_balance)  # arbitrarily small value used to remove near-zero account balances
