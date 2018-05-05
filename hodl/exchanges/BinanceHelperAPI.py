@@ -41,32 +41,115 @@ def print_binance_ascii():
           '\____/|_|_| |_|\__,_|_| |_|\___\___|')
 
 
+def print_formatted_balance(asset_ticker, asset_balance, asset_free_bal, mkt_btc_value):
+
+    mkt_str = ' --- {0: <6} ---  '.format(asset_ticker)
+    mkt_str += 'balance: {0: >15.8f} --- '.format(asset_balance)
+    mkt_str += 'available/free: {0: >15.8f} --- '.format(asset_free_bal)
+    # mkt_str += 'onOrders/locked: {0: >15.8f} --- '.format(asset_locked_bal)
+    mkt_str += 'btcValue: {0: >11.8f} --- '.format(mkt_btc_value)
+    print(mkt_str)
+
+
 def print_binance_balances():
-    print(' - - - GET BINANCE BALANCES - - - ')
-    # TODO: Beautify
+    account_value_btc = 0
+    btc_balance_available = get_binance_available_btc()
+    print('------------------------------------------------------'
+          '------------------------------------------------------')
+    print('Available BTC Balance: {:.8f}'.format(float(btc_balance_available)))
+    print('------------------------------------------------------'
+          '------------------------------------------------------')
     info = client.get_account()
+
     for asset in info['balances']:
-        if float(asset['free']) > NEAR_ZERO_BALANCE or float(asset['locked']) > NEAR_ZERO_BALANCE:
-            print(asset)
+        asset_free_bal = float(asset['free'])
+        asset_locked_bal = float(asset['locked'])
+        asset_balance = asset_free_bal + asset_locked_bal
+        asset_ticker = asset['asset']
+        # If coin is not BTC we need market price (in btc)
+        mkt_btc_value = 0
+
+        if 'BTC' not in asset_ticker:
+
+            if asset_balance > NEAR_ZERO_BALANCE:
+                mkt_ticker = '{}BTC'.format(asset_ticker)
+                try:
+                    mkt_price = calc_price_of_market(mkt_ticker)
+                    mkt_btc_value = mkt_price * asset_balance
+                except:
+                    # print('Market: {} does not exist? '.format(mkt_ticker))
+                    pass
+
+                if mkt_btc_value > NEAR_ZERO_BALANCE:
+                    account_value_btc += mkt_btc_value
+                    print_formatted_balance(asset_ticker, asset_balance, asset_free_bal, mkt_btc_value)
+
+        elif asset_ticker == 'BTC':
+
+            if asset_balance > NEAR_ZERO_BALANCE:
+                account_value_btc += mkt_btc_value
+                print_formatted_balance(asset_ticker, asset_balance, asset_free_bal, mkt_btc_value)
+
+    account_value_btc += btc_balance_available
+    print('------------------------------------------------------'
+          '------------------------------------------------------')
+    print('Account Value: {:.8f} BTC'
+          .format(account_value_btc))
+    print('------------------------------------------------------'
+          '------------------------------------------------------')
+
+
+def calc_price_of_market(mrkt_ticker, aggressiveness=0.5):
+    """
+    Calculates the price of a market using the spread
+        aggressiveness = 1.0 : uses the highest bid (best when selling)
+        aggressiveness = 0.0 : uses the lowest ask (best when buying)
+        aggressiveness = 0.5 : middle of spread
+
+    :param aggressiveness: Ratio used to control how aggressive
+    :type aggressiveness: float (zero to one)
+    :return: calculated price for asset
+    :rtype: float
+    """
+    depth = client.get_order_book(symbol=mrkt_ticker)
+    highest_bid = float(depth['bids'][0][0])
+    lowest_ask = float(depth['asks'][0][0])
+    spread = highest_bid - lowest_ask
+    btc_price = float((spread * aggressiveness) + lowest_ask)
+    return round(btc_price, 8)
 
 
 def get_binance_account_value():
-    print(' - - - GET BINANCE ACCOUNT VAL - - - ')
-    # TODO: Beautify
-    print('print: info = client.get_account() ')
+    account_value_btc = 0
     info = client.get_account()
+
     for asset in info['balances']:
-        if float(asset['free']) > NEAR_ZERO_BALANCE or float(asset['locked']) > NEAR_ZERO_BALANCE:
-            print(' {} ---- locked: {} ---- free {}'.format(asset['asset'], asset['free'], asset['locked']))
-    return 0
+        mkt_avail_bal = float(asset['free'])
+        mkt_locked_bal = float(asset['locked'])
+        mkt_balance = mkt_avail_bal + mkt_locked_bal
+        mkt_btc_value = 0
+
+        if mkt_avail_bal > NEAR_ZERO_BALANCE or mkt_locked_bal > NEAR_ZERO_BALANCE:
+            mkt_ticker = asset['asset']
+            try:
+                mkt_price = calc_price_of_market(mkt_ticker)
+                mkt_btc_value = mkt_price * mkt_balance
+            except:
+                # print('Market: {} does not exist? '.format(mkt_ticker))
+                pass
+            # arbitrary number to remove near-zero value balances
+            if mkt_btc_value > NEAR_ZERO_BALANCE:
+                account_value_btc += mkt_btc_value
+
+    account_value_btc += get_binance_available_btc()
+
+    return float(account_value_btc)
 
 
 def get_binance_available_btc():
-    print(' - - - GET BINANCE AVAILABLE BTC - - - ')
-    # TODO: Beautify
     btc_balance_info = client.get_asset_balance(asset='BTC')
-    print(btc_balance_info)
-    return 0
+    btc_available = float(btc_balance_info['free'])
+    return btc_available
 
 
 def print_open_binance_orders():
