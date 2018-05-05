@@ -155,7 +155,6 @@ def get_binance_available_btc():
 def print_open_binance_orders():
     print(' - - - PRINT OPEN BINANCE ORDERS - - - ')
     # TODO: Beautify
-    print('print:     orders = client.get_open_orders()')
     orders = client.get_open_orders()
     print(orders)
 
