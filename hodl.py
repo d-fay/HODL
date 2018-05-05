@@ -3,16 +3,21 @@ import sys
 from sys import argv
 
 from hodl.ConfRetriever import ConfRetriever
-from hodl.exchanges.Polo import (print_poloniex_ascii,
-                                 print_poloniex_balances,
-                                 get_poloniex_account_value,
-                                 get_poloniex_available_btc,
-                                 print_open_poloniex_orders)
-from hodl.exchanges.Trex import (print_bittrex_ascii,
-                                 print_bittrex_balances,
-                                 get_bittrex_account_value,
-                                 get_bittrex_available_btc,
-                                 print_open_bittrex_orders)
+from hodl.exchanges.BinanceHelperAPI import (print_binance_ascii,
+                                             print_binance_balances,
+                                             get_binance_account_value,
+                                             get_binance_available_btc,
+                                             print_open_binance_orders)
+from hodl.exchanges.PoloniexHelperAPI import (print_poloniex_ascii,
+                                              print_poloniex_balances,
+                                              get_poloniex_account_value,
+                                              get_poloniex_available_btc,
+                                              print_open_poloniex_orders)
+from hodl.exchanges.BittrexHelperAPI import (print_bittrex_ascii,
+                                             print_bittrex_balances,
+                                             get_bittrex_account_value,
+                                             get_bittrex_available_btc,
+                                             print_open_bittrex_orders)
 
 settings = ConfRetriever()
 
@@ -60,6 +65,7 @@ def main():
         print('hodl requires using one of the following flags:\n')
         print('     --overview: Print total and available btc balances')
         print('     --detailed: Print verbose account balances')
+        print('     --binance: Print only Binance balances')
         print('     --poloniex: Print only Poloniex balances')
         print('     --bittrex: Print only Bittrex balances')
 
@@ -82,13 +88,27 @@ def main():
         print('Balances By Account (BTC)\n')
         value_of_all_accounts = 0
         value_of_all_available_btc = 0
+        value_at_binance = 0
         value_at_poloniex = 0
         value_at_bittrex = 0
+        percent_at_bina = 0
         percent_at_polo = 0
         percent_at_trex = 0
         percent_string = ''
 
         # --- SECTION 1: PRINTING ACCOUNT BALANCE AT EACH EXCHANGE ---
+
+        if settings.binance == 'on':
+            value_at_binance = float(get_binance_account_value())
+            btc_avail_at_bina = float(get_binance_available_btc())
+
+            value_of_all_accounts += value_at_binance
+            value_of_all_available_btc += btc_avail_at_bina
+
+            bina_str = '{0: >10} '.format('Binance')
+            bina_str += ' --- Available: {0: >10.8f}'.format(btc_avail_at_bina)
+            bina_str += ' --- Account Value: {0: >10.8f}'.format(value_at_binance)
+            print(bina_str)
 
         if settings.poloniex == 'on':
             value_at_poloniex = float(get_poloniex_account_value())
@@ -117,9 +137,16 @@ def main():
         # --- SECTION 2: COMPUTE PERCENTAGE OF EQUITY AT EACH EXCHANGE ---
 
         if value_of_all_accounts == 0:
-            print('Error: check the conf/settings.ini file to ensure appropriate exchanges are turned on.')
+            print('The value of all connected exchange accounts is zero. If you believe this to be incorrect,'
+                  'please check the conf/settings.ini file to ensure appropriate exchanges are turned on.')
 
         else:
+
+            if settings.binance == 'on':
+                percent_at_bina = value_at_binance / value_of_all_accounts * 100
+                bina_percent_str = '{0: >10} '.format('Binance')
+                bina_percent_str += ' --- % {0: >3.2f}'.format(percent_at_bina)
+                percent_string += '\n{}'.format(bina_percent_str)
 
             if settings.poloniex == 'on':
                 percent_at_polo = value_at_poloniex / value_of_all_accounts * 100
@@ -155,6 +182,16 @@ def main():
         print('Total estimated value of all accounts: {0:.8f} BTC'.format(combined_value_of_accounts))
         print('===================================================================\n')
 
+    def print_binance_detail_balances():
+        """
+        Print detailed balances of Binance account
+        :return: None
+        """
+        if settings.binance == 'on':
+            print_binance_ascii()
+            print_binance_balances()
+            print_open_binance_orders()
+
     def print_poloniex_detail_balances():
         """
         Print detailed balances of Poloniex account
@@ -181,6 +218,7 @@ def main():
         then print a total combined value of all active exchanges.
         :return: None
         """
+        print_binance_detail_balances()
         print_poloniex_detail_balances()
         print_bittrex_detail_balances()
 
@@ -197,6 +235,10 @@ def main():
             elif arg == '--detailed' or arg == 'detailed':
                 ascii()
                 execute_printing_of_all_balances()          # --detailed: Print verbose account balances
+                sys.exit(0)
+            elif arg == '--binance' or arg == 'binance':
+                print_binance_ascii()
+                print_binance_balances()                    # --binance: Print only Binance balances
                 sys.exit(0)
             elif arg == '--poloniex' or arg == 'poloniex':
                 print_poloniex_ascii()

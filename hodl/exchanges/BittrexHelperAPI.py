@@ -2,18 +2,17 @@
 THIS CLASS HANDLES ALL BITTREX API
 
 Parameter configuration files are located in ../conf/settings.ini
+
+    DOCUMENTATION for Bittrex():
+        - https://bittrex.com/Home/Api
+        - https://github.com/ericsomdahl/python-bittrex
+
 """
 import sys
 
 from hodl.ConfRetriever import ConfRetriever
 from hodl.exchanges.Bittrex import Bittrex, API_V1_1, API_V2_0
 
-"""
-    DOCUMENTATION for Bittrex(): 
-        - https://bittrex.com/Home/Api
-        - https://github.com/ericsomdahl/python-bittrex
-
-"""
 
 conf = ConfRetriever()
 NEAR_ZERO_BALANCE = float(conf.near_zero_balance)  # arbitrarily small value used to remove near-zero account balances
@@ -39,6 +38,10 @@ def print_bittrex_ascii():
           '| ___ \ | __| __| \'__/ _ \\ \\/ /\n'
           '| |_/ / | |_| |_| | |  __/>  < \n'
           '\____/|_|\__|\__|_|  \___/_/\_\\')
+
+
+def print_bittrex_api_error(response):
+    print('Error with Bittrex API ::: {}: {}'.format(response['success'], response['result']))
 
 
 def print_bittrex_balances():
@@ -98,12 +101,7 @@ def print_bittrex_balances():
             print('----------------------------------------------------'
                   '-----------------------------------------------------')
         else:
-            print('Error with Bittrex API ::: {}: {}'.format(btc_balance_response['success'],
-                                                             btc_balance_response['result']))
-
-
-def print_bittrex_api_error(response):
-    print('Error with Bittrex API ::: {}: {}'.format(response['success'], response['result']))
+            print_bittrex_api_error(btc_balance_response)
 
 
 def print_open_bittrex_orders():
@@ -120,8 +118,7 @@ def print_open_bittrex_orders():
                 print(temp_str)
         print('\n')
     else:
-        print('Error with Bittrex API ::: {}: {}'.format(open_orders_response['success'],
-                                                         open_orders_response['result']))
+        print_bittrex_api_error(open_orders_response)
 
 
 def get_bittrex_available_btc():
