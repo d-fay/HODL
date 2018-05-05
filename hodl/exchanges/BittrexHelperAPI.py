@@ -40,6 +40,10 @@ def print_bittrex_ascii():
           '\____/|_|\__|\__|_|  \___/_/\_\\')
 
 
+def print_bittrex_api_error(response):
+    print('Error with Bittrex API ::: {}: {}'.format(response['success'], response['result']))
+
+
 def print_bittrex_balances():
     # TODO: CONVERT TO bittrex_v1 usage ?
 
@@ -97,12 +101,7 @@ def print_bittrex_balances():
             print('----------------------------------------------------'
                   '-----------------------------------------------------')
         else:
-            print('Error with Bittrex API ::: {}: {}'.format(btc_balance_response['success'],
-                                                             btc_balance_response['result']))
-
-
-def print_bittrex_api_error(response):
-    print('Error with Bittrex API ::: {}: {}'.format(response['success'], response['result']))
+            print_bittrex_api_error(btc_balance_response)
 
 
 def print_open_bittrex_orders():
@@ -119,8 +118,7 @@ def print_open_bittrex_orders():
                 print(temp_str)
         print('\n')
     else:
-        print('Error with Bittrex API ::: {}: {}'.format(open_orders_response['success'],
-                                                         open_orders_response['result']))
+        print_bittrex_api_error(open_orders_response)
 
 
 def get_bittrex_available_btc():
