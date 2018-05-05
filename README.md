@@ -15,6 +15,7 @@ _This simple script provides a detailed overview of your cryptocurreny exchange 
 **Supported Exchanges:**
 * Bittrex
 * Poloniex
+* Binance
 
 
 ## Setup
