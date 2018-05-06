@@ -115,7 +115,7 @@ def print_binance_balances():
 
             if asset_balance > NEAR_ZERO_BALANCE:
                 account_value_btc += mkt_btc_value
-                print_formatted_balance(asset_ticker, asset_balance, asset_free_bal, mkt_btc_value)
+                print_formatted_balance(asset_ticker, asset_balance, asset_free_bal, asset_balance)
 
     account_value_btc += btc_balance_available
     print('------------------------------------------------------'
