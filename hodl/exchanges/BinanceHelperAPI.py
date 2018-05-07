@@ -103,7 +103,8 @@ def print_binance_balances():
                     mkt_price = calc_price_of_market(mkt_ticker)
                     mkt_btc_value = mkt_price * asset_balance
                 except:
-                    # print('Market: {} does not exist? '.format(mkt_ticker))
+                    print('Market: {} does not exist? '.format(mkt_ticker))
+                    print('Unexpected error:', sys.exc_info()[0])
                     pass
 
                 if mkt_btc_value > NEAR_ZERO_BALANCE:
@@ -114,7 +115,7 @@ def print_binance_balances():
 
             if asset_balance > NEAR_ZERO_BALANCE:
                 account_value_btc += mkt_btc_value
-                print_formatted_balance(asset_ticker, asset_balance, asset_free_bal, mkt_btc_value)
+                print_formatted_balance(asset_ticker, asset_balance, asset_free_bal, asset_balance)
 
     account_value_btc += btc_balance_available
     print('------------------------------------------------------'
@@ -141,7 +142,9 @@ def get_binance_account_value():
                 mkt_price = calc_price_of_market(mkt_ticker)
                 mkt_btc_value = mkt_price * mkt_balance
             except:
+                # This needs to be investigated further
                 # print('Market: {} does not exist? '.format(mkt_ticker))
+                # print('Unexpected error:', sys.exc_info()[0])
                 pass
             # arbitrary number to remove near-zero value balances
             if mkt_btc_value > NEAR_ZERO_BALANCE:
