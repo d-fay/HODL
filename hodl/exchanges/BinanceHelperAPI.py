@@ -103,8 +103,8 @@ def print_binance_balances():
                     mkt_price = calc_price_of_market(mkt_ticker)
                     mkt_btc_value = mkt_price * asset_balance
                 except:
-                    print('Market: {} does not exist? '.format(mkt_ticker))
-                    print('Unexpected error:', sys.exc_info()[0])
+                    # print('Market: {} does not exist? '.format(mkt_ticker))
+                    # print('Unexpected error:', sys.exc_info()[0])
                     pass
 
                 if mkt_btc_value > NEAR_ZERO_BALANCE:
@@ -131,23 +131,31 @@ def get_binance_account_value():
     info = client.get_account()
 
     for asset in info['balances']:
-        mkt_avail_bal = float(asset['free'])
-        mkt_locked_bal = float(asset['locked'])
-        mkt_balance = mkt_avail_bal + mkt_locked_bal
+        asset_free_bal = float(asset['free'])
+        asset_locked_bal = float(asset['locked'])
+        asset_balance = asset_free_bal + asset_locked_bal
+        asset_ticker = asset['asset']
         mkt_btc_value = 0
 
-        if mkt_avail_bal > NEAR_ZERO_BALANCE or mkt_locked_bal > NEAR_ZERO_BALANCE:
-            mkt_ticker = asset['asset']
-            try:
-                mkt_price = calc_price_of_market(mkt_ticker)
-                mkt_btc_value = mkt_price * mkt_balance
-            except:
-                # This needs to be investigated further
-                # print('Market: {} does not exist? '.format(mkt_ticker))
-                # print('Unexpected error:', sys.exc_info()[0])
-                pass
-            # arbitrary number to remove near-zero value balances
-            if mkt_btc_value > NEAR_ZERO_BALANCE:
+        if 'BTC' not in asset_ticker:
+
+            if asset_balance > NEAR_ZERO_BALANCE:
+                mkt_ticker = '{}BTC'.format(asset_ticker)
+
+                try:
+                    mkt_price = calc_price_of_market(mkt_ticker)
+                    mkt_btc_value = mkt_price * asset_balance
+                except:
+                    # print('Market: {} does not exist? '.format(mkt_ticker))
+                    # print('Unexpected error:', sys.exc_info()[0])
+                    pass
+
+                if mkt_btc_value > NEAR_ZERO_BALANCE:
+                    account_value_btc += mkt_btc_value
+
+        elif asset_ticker == 'BTC':
+
+            if asset_balance > NEAR_ZERO_BALANCE:
                 account_value_btc += mkt_btc_value
 
     account_value_btc += get_binance_available_btc()
