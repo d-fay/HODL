@@ -118,6 +118,7 @@ def print_binance_balances():
                 print_formatted_balance(asset_ticker, asset_balance, asset_free_bal, asset_balance)
 
     account_value_btc += btc_balance_available
+    account_value_btc += get_binance_open_buy_orders_value()
     print('------------------------------------------------------'
           '------------------------------------------------------')
     print('Account Value: {:.8f} BTC'
@@ -159,6 +160,7 @@ def get_binance_account_value():
                 account_value_btc += mkt_btc_value
 
     account_value_btc += get_binance_available_btc()
+    account_value_btc += get_binance_open_buy_orders_value()
 
     return float(account_value_btc)
 
@@ -170,8 +172,23 @@ def get_binance_available_btc():
 
 
 def print_binance_open_orders():
-    print(' - - - PRINT OPEN BINANCE ORDERS - - - ')
-    # TODO: Beautify
+    print('Open orders: ')
     orders = client.get_open_orders()
-    print(orders)
+    for order in orders:
+        mkt_str = ' {0: <6} --- '.format(order['symbol'])
+        mkt_str += 'orderType: {}   ---  side: {}  \n\t'.format(order['type'], order['side'])
+        mkt_str += '--- price: {0: >11.8f} ---  '.format(float(order['price']))
+        mkt_str += 'origQty: {0: >15} ---  '.format(order['origQty'])
+        mkt_str += 'executedQty: {0: >15} ---  \n'.format(order['executedQty'])
+        print(mkt_str)
+    print('\n')
 
+
+def get_binance_open_buy_orders_value():
+    orders = client.get_open_orders()
+    open_orders_val = 0.0
+    for order in orders:
+        if order['side'] == 'BUY':
+            order_value = float(order['origQty']) * float(order['price'])
+            open_orders_val += order_value
+    return open_orders_val
