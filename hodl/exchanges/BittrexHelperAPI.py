@@ -104,7 +104,7 @@ def print_bittrex_balances():
             print_bittrex_api_error(btc_balance_response)
 
 
-def print_open_bittrex_orders():
+def print_bittrex_open_orders():
     open_orders_response = bittrex_v1.get_open_orders()
     if open_orders_response['success'] and open_orders_response['result'] is not None:
         open_orders = open_orders_response['result']

@@ -7,17 +7,17 @@ from hodl.exchanges.BinanceHelperAPI import (print_binance_ascii,
                                              print_binance_balances,
                                              get_binance_account_value,
                                              get_binance_available_btc,
-                                             print_open_binance_orders)
+                                             print_binance_open_orders)
 from hodl.exchanges.PoloniexHelperAPI import (print_poloniex_ascii,
                                               print_poloniex_balances,
                                               get_poloniex_account_value,
                                               get_poloniex_available_btc,
-                                              print_open_poloniex_orders)
+                                              print_poloniex_open_orders)
 from hodl.exchanges.BittrexHelperAPI import (print_bittrex_ascii,
                                              print_bittrex_balances,
                                              get_bittrex_account_value,
                                              get_bittrex_available_btc,
-                                             print_open_bittrex_orders)
+                                             print_bittrex_open_orders)
 
 settings = ConfRetriever()
 
@@ -190,7 +190,7 @@ def main():
         if settings.binance == 'on':
             print_binance_ascii()
             print_binance_balances()
-            print_open_binance_orders()
+            print_binance_open_orders()
 
     def print_poloniex_detail_balances():
         """
@@ -200,7 +200,7 @@ def main():
         if settings.poloniex == 'on':
             print_poloniex_ascii()
             print_poloniex_balances()
-            print_open_poloniex_orders()
+            print_poloniex_open_orders()
 
     def print_bittrex_detail_balances():
         """
@@ -210,7 +210,7 @@ def main():
         if settings.bittrex == 'on':
             print_bittrex_ascii()
             print_bittrex_balances()
-            print_open_bittrex_orders()
+            print_bittrex_open_orders()
 
     def execute_printing_of_all_balances():
         """
@@ -239,14 +239,17 @@ def main():
             elif arg == '--binance' or arg == 'binance':
                 print_binance_ascii()
                 print_binance_balances()                    # --binance: Print only Binance balances
+                print_binance_open_orders()
                 sys.exit(0)
             elif arg == '--poloniex' or arg == 'poloniex':
                 print_poloniex_ascii()
                 print_poloniex_balances()                   # --poloniex: Print only Poloniex balances
+                print_poloniex_open_orders()
                 sys.exit(0)
             elif arg == '--bittrex' or arg == 'bittrex':
                 print_bittrex_ascii()
                 print_bittrex_balances()                    # --balances: Print only Bittrex balances
+                print_bittrex_open_orders()
                 sys.exit(0)
 
     ascii()   # ascii art
