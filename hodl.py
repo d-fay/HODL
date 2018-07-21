@@ -12,7 +12,8 @@ from hodl.exchanges.PoloniexHelperAPI import (print_poloniex_ascii,
                                               print_poloniex_balances,
                                               get_poloniex_account_value,
                                               get_poloniex_available_btc,
-                                              print_poloniex_open_orders)
+                                              print_poloniex_open_orders,
+                                              print_poloniex_trade_history)
 from hodl.exchanges.BittrexHelperAPI import (print_bittrex_ascii,
                                              print_bittrex_balances,
                                              get_bittrex_account_value,
@@ -250,6 +251,9 @@ def main():
                 print_bittrex_ascii()
                 print_bittrex_balances()                    # --balances: Print only Bittrex balances
                 print_bittrex_open_orders()
+                sys.exit(0)
+            elif arg == '--poloTradeHist' or arg == 'poloTradeHist':
+                print_poloniex_trade_history()
                 sys.exit(0)
 
     ascii()   # ascii art

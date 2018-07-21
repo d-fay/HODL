@@ -5,6 +5,7 @@ Parameter configuration files are located in ../conf/settings.ini
 """
 import sys
 import time
+import datetime
 
 from poloniex import Poloniex
 
@@ -46,6 +47,18 @@ def print_poloniex_ascii():
           '|  __/ _ \| |/ _ \| \'_ \\| |/ _ \\ \\/ /\n'
           '| | | (_) | | (_) | | | | |  __/>  < \n'
           '\_|  \___/|_|\___/|_| |_|_|\___/_/\_\\')
+
+
+def print_poloniex_trade_history():
+    start_dt = int(time.mktime(datetime.date(2014, 1, 1).timetuple()))
+    end_dt = int(time.mktime(datetime.date.today().timetuple()))
+
+    trade_history = connection.returnTradeHistory(start=start_dt, end=end_dt)
+
+    for market_ticker, market_trade_hist in trade_history.items():
+        print(market_ticker)
+        for trade_data in market_trade_hist:
+            print(trade_data)
 
 
 def print_poloniex_balances():
