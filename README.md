@@ -153,6 +153,7 @@ To use `hodl` you must first follow all of the above instructions.
 - `--overview`  : Print total and available btc balance overview
 - `--detailed`  : Print verbose account balances of all your bags
 - `--poloniex`  : Print only Poloniex balances
+- `--poloTradeHist` : Print only Poloniex Trade History
 - `--bittrex`   : Print only Bittrex balances
 
     

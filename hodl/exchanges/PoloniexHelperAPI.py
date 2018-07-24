@@ -5,14 +5,9 @@ Parameter configuration files are located in ../conf/settings.ini
 """
 import sys
 import time
-
-from poloniex import Poloniex
-
-from hodl.ConfRetriever import ConfRetriever
-
-
 import datetime
-
+from poloniex import Poloniex
+from hodl.ConfRetriever import ConfRetriever
 """
 Open a connection to the Poloniex API
 
@@ -51,8 +46,6 @@ def print_poloniex_ascii():
           '\_|  \___/|_|\___/|_| |_|_|\___/_/\_\\')
 
 def print_poloniex_trade_history():
-    if settings.poloniex == 'on':
-
         start_date = datetime.date(2015, 1, 1)
         end_date = datetime.date.today()
 
