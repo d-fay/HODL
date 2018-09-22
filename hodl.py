@@ -12,11 +12,13 @@ from hodl.exchanges.PoloniexHelperAPI import (print_poloniex_ascii,
                                               print_poloniex_balances,
                                               get_poloniex_account_value,
                                               get_poloniex_available_btc,
+                                              print_poloniex_trade_history,
                                               print_poloniex_open_orders)
 from hodl.exchanges.BittrexHelperAPI import (print_bittrex_ascii,
                                              print_bittrex_balances,
                                              get_bittrex_account_value,
                                              get_bittrex_available_btc,
+                                             print_bittrex_trade_history,
                                              print_bittrex_open_orders)
 
 settings = ConfRetriever()
@@ -68,6 +70,8 @@ def main():
         print('     --binance: Print only Binance balances')
         print('     --poloniex: Print only Poloniex balances')
         print('     --bittrex: Print only Bittrex balances')
+        print('     --bittrexTradeHist: Print only Bittrex Trade History')
+        print('     --poloTradeHist: Print only Poloniex Trade History')
 
         print('\nPlease pass in required argument (ie: python3 hodl.py --overview)\n')
 
@@ -245,6 +249,14 @@ def main():
                 print_poloniex_ascii()
                 print_poloniex_balances()                   # --poloniex: Print only Poloniex balances
                 print_poloniex_open_orders()
+                sys.exit(0)
+            elif arg == '--poloTradeHist' or arg == 'poloTradeHist':
+                print_poloniex_ascii()
+                print_poloniex_trade_history()             # --poloTradeHist: Print only Poloniex Trade History
+                sys.exit(0)
+            elif arg == "--bittrexTradeHist" or arg == 'bittrexTradeHist':
+                print_bittrex_ascii()
+                print_bittrex_trade_history()               # --bittrexTradeHist : Print on Bittrex Trade History
                 sys.exit(0)
             elif arg == '--bittrex' or arg == 'bittrex':
                 print_bittrex_ascii()
