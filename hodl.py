@@ -251,6 +251,7 @@ def main():
                 print_poloniex_open_orders()
                 sys.exit(0)
             elif arg == '--poloTradeHist' or arg == 'poloTradeHist':
+                print_poloniex_ascii()
                 print_poloniex_trade_history()             # --poloTradeHist: Print only Poloniex Trade History
                 sys.exit(0)
             elif arg == "--bittrexTradeHist" or arg == 'bittrexTradeHist':
