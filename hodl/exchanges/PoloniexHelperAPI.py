@@ -91,7 +91,7 @@ def print_poloniex_balances():
           '-----------------------------------------------------')
 
 
-def print_open_poloniex_orders():
+def print_poloniex_open_orders():
     complete_balances = connection.returnOpenOrders('all')
     print('Open orders: ')
     for market, orders in complete_balances.items():
