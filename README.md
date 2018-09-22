@@ -155,6 +155,8 @@ To use `hodl` you must first follow all of the above instructions.
 - `--poloniex`  : Print only Poloniex balances
 - `--poloTradeHist` : Print only Poloniex Trade History
 - `--bittrex`   : Print only Bittrex balances
+- `--bittrexTradeHist`   : Print only Bittrex Trade History
+
 
     
 _You should immediately see feedback from the console suggesting `hodle` has started._

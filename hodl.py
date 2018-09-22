@@ -7,7 +7,7 @@ from hodl.exchanges.BinanceHelperAPI import (print_binance_ascii,
                                              print_binance_balances,
                                              get_binance_account_value,
                                              get_binance_available_btc,
-                                             print_open_binance_orders,)
+                                             print_open_binance_orders)
 from hodl.exchanges.PoloniexHelperAPI import (print_poloniex_ascii,
                                               print_poloniex_balances,
                                               get_poloniex_account_value,
@@ -70,6 +70,7 @@ def main():
         print('     --binance: Print only Binance balances')
         print('     --poloniex: Print only Poloniex balances')
         print('     --bittrex: Print only Bittrex balances')
+        print('     --bittrexTradeHist: Print only Bittrex Trade History')
         print('     --poloTradeHist: Print only Poloniex Trade History')
 
         print('\nPlease pass in required argument (ie: python3 hodl.py --overview)\n')
@@ -250,9 +251,9 @@ def main():
             elif arg == '--poloTradeHist' or arg == 'poloTradeHist':
                 print_poloniex_trade_history()             # --poloTradeHist: Print only Poloniex Trade History
                 sys.exit(0)
-            elif arg == "--bittrexTradeHist" or arg == 'bittrexTradeHist'
+            elif arg == "--bittrexTradeHist" or arg == 'bittrexTradeHist':
                 print_bittrex_ascii()
-                print_bittrex_trade_history()               #--bittrexTradeHist : Print on Bittrex Trade History
+                print_bittrex_trade_history()               # --bittrexTradeHist : Print on Bittrex Trade History
                 sys.exit(0)
             elif arg == '--bittrex' or arg == 'bittrex':
                 print_bittrex_ascii()

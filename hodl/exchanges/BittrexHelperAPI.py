@@ -45,7 +45,7 @@ def print_bittrex_trade_history():
     trade_history_response = bittrex_v2.get_order_history()
     if trade_history_response['success'] and trade_history_response['result'] is not None:
         trade_history_data = trade_history_response['result']
-    print('Trade History for all currencies{}' .format(trade_history_data))
+        print('Trade History for all currencies {}' .format(trade_history_data))
     if trade_history_data is None:
         print('Error: No trade history data returned from Bittrex')
 
